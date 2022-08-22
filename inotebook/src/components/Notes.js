@@ -8,6 +8,7 @@ const Notes = (props) => {
   let context = useContext(noteContext);
   const { notes, getNotes, editNote } = context;
   useEffect(() => {
+    console.log(localStorage.getItem("token"));
     if (localStorage.getItem("token")) {
       getNotes();
     } else {

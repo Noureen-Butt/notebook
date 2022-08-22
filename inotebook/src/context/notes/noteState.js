@@ -50,6 +50,7 @@ const NoteState = (props) => {
       },
     });
     const res = response.json();
+    console.log(res);
     const newNotes = notes.filter((elem) => {
       return elem._id !== id;
     });

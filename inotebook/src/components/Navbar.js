@@ -1,17 +1,22 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Alert from "./Alert";
 
 const Navbar = (props) => {
   let location = useLocation();
+  let navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
 
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark ">
         <div className="container-fluid">
-          <a className="navbar-brand" href="/">
+          <Link Link className="navbar-brand" to="/home">
             iNoteBook
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -47,14 +52,36 @@ const Navbar = (props) => {
                 </Link>
               </li>
             </ul>
-            <form className="d-flex">
-              <Link to="/login" className="btn btn-primary mx-1" role="button">
-                Login
-              </Link>
-              <Link to="/signup" className="btn btn-primary mx-1" role="button">
-                Sign Up
-              </Link>
-            </form>
+
+            {!localStorage.getItem("token") ? (
+              <form className="d-flex">
+                <Link
+                  to="/login"
+                  className="btn btn-primary mx-1"
+                  role="button"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/signup"
+                  className="btn btn-primary mx-1"
+                  role="button"
+                >
+                  Sign Up
+                </Link>
+              </form>
+            ) : (
+              <>
+                <i class="fa-solid fa-user"></i>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={handleLogout}
+                >
+                  Log out
+                </button>
+              </>
+            )}
           </div>
         </div>
       </nav>

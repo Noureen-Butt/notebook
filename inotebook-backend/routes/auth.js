@@ -81,15 +81,11 @@ router.post(
       let success = false;
       let user = await User.findOne({ email });
       if (!user) {
-        return res
-          .status(400)
-          .json({ success, error: "Please login with correct credentials" });
+        return res.status(400).json({ success, error: "incorrect email" });
       }
       const passCompare = await bcrypt.compare(password, user.password);
       if (!passCompare) {
-        return res
-          .status(400)
-          .json({ success, error: "Please login with correct credentials" });
+        return res.status(400).json({ success, error: "incorrect password" });
       }
       const data = {
         user: {
@@ -101,7 +97,7 @@ router.post(
       res.json({ success, AuthTocken });
     } catch (error) {
       console.error(error);
-      res.status(500).json("Some error has occured!");
+      res.status(500).json("Server error occured!");
     }
   }
 );

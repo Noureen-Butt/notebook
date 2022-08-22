@@ -27,11 +27,11 @@ const Signup = (props) => {
       }),
     });
     const json = await response.json();
-    localStorage.setItem("auth", json.AuthTocken);
     console.log(json.AuthTocken);
     if (json.AuthTocken) {
+      localStorage.setItem("token", json.AuthTocken);
       props.showAlert("success", "Account created successfully");
-      navigate("/login");
+      navigate("/homes");
     } else {
       props.showAlert("danger", "Please try with some other email");
     }
